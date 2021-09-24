@@ -66,6 +66,8 @@ public class myObject_controller_left : MonoBehaviour
     //定义全局变量方便OnGUI函数测试，这里有个坑在GetLocalControllerPosition得到的位置是相对位置(0，0，0)，而不是手柄的绝对位置
     Vector3 controllerPos;
     Quaternion controllerRot;
+    bool showLaser = false;
+
     void Update()
     {
         controllerPos = OVRInput.GetLocalControllerPosition(controller);
@@ -100,6 +102,13 @@ public class myObject_controller_left : MonoBehaviour
         {
             grabTime -= Time.deltaTime * 5;
             grabTime = Mathf.Clamp01(grabTime);
+        }
+
+
+        //如果按下B键则显示laser，再按一次则取消显示
+        if (OVRInput.GetDown(OVRInput.Button.Four, controller))
+        {
+            showLaser = !showLaser;
         }
     }
 
@@ -177,31 +186,33 @@ public class myObject_controller_left : MonoBehaviour
         demoObjects.transform.position = Camera.main.transform.position + objFwd;
         demoObjects.transform.rotation = Quaternion.LookRotation(objFwd);
     }
-
     //查找悬停对象
     void FindHoverObject(Vector3 controllerPos, Quaternion controllerRot)
     {
+        //计算光线投中的物体
         RaycastHit[] objectsHit = Physics.RaycastAll(controllerPos, controllerRot * Vector3.forward);
-        float closestObject = Mathf.Infinity;
+        float closestObject = Mathf.Infinity; //closestObject最近对象距离为数学无穷大
         float rayDistance = 2.0f;
-        bool showLaser = true;
         Vector3 labelPosition = Vector3.zero;
-        foreach (RaycastHit hit in objectsHit)
+        foreach (RaycastHit hit in objectsHit)//遍历光线投中物体数组，得到距离最近的物体
         {
-            float thisHitDistance = Vector3.Distance(hit.point, controllerPos);
-            if (thisHitDistance < closestObject)
+            float thisHitDistance = Vector3.Distance(hit.point, controllerPos); //thisHitDistance获得控制器到打击点的命中距离
+            if (thisHitDistance < closestObject) //如果比最近对象距离小
             {
-                hoverObject = hit.collider.gameObject;
+                hoverObject = hit.collider.gameObject; //hoverObject获得悬停碰撞对象
                 closestObject = thisHitDistance;
                 rayDistance = grabObject ? thisHitDistance : thisHitDistance - 0.1f;
                 labelPosition = hit.point;
             }
         }
+
+        //如果光线投中物体数组长度为0，设置悬停对象为空
         if (objectsHit.Length == 0)
         {
             hoverObject = null;
         }
 
+        //如果与物体相交，抓住它
         // if intersecting with an object, grab it
         Collider[] hitColliders = Physics.OverlapSphere(controllerPos, 0.05f);
         foreach (var hitCollider in hitColliders)

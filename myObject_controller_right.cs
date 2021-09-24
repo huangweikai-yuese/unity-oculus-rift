@@ -105,8 +105,8 @@ public class myObject_controller_right : MonoBehaviour
         }
 
 
-        //如果按下A键则显示laser，再按一次则取消显示
-        if (OVRInput.GetDown(OVRInput.Button.One, controller))
+        //如果按下B键则显示laser，再按一次则取消显示
+        if (OVRInput.GetDown(OVRInput.Button.Two, controller))
         {
             showLaser = !showLaser;
         }
