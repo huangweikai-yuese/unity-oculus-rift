@@ -46,6 +46,7 @@ public class myObject_controller_right : MonoBehaviour
     // only used in this script for fading in from black
     public OVRPassthroughLayer passthrough;
 
+
     private void Start()
     {
         if (passthrough)
@@ -125,8 +126,6 @@ public class myObject_controller_right : MonoBehaviour
         GUILayout.Label("控制器旋转" + controllerRot.y);
         GUILayout.Label("控制器旋转" + controllerRot.z);
     }
-
-
 
     void GrabHoverObject(GameObject grbObj, Vector3 controllerPos, Quaternion controllerRot)
     {
