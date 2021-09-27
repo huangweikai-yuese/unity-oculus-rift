@@ -1,15 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class click : MonoBehaviour
 {
     public void clicked(string name) {
         GameObject canvas;
         GameObject button;
-        GameObject Text;
+        GameObject Text; 
 
         //根据对象名判断响应哪个点击事件
         switch (name)
@@ -26,20 +25,21 @@ public class click : MonoBehaviour
                  canvas = GameObject.Find("Canvas");
                 //找到画布下的Text
                 Text = canvas.transform.Find("Text").gameObject;
-                //获取Text的Text组件
-                Text text_play = Text.GetComponent<Text>();
+                //获取Text的TMP_Text组件
+                TMP_Text tmp_text_play = Text.GetComponent<TMP_Text>();
                 //修改Text组件的值
-                text_play.text = "点击了play";
+                tmp_text_play.text = "click play";
                 break;
+
             case "pause":
                 //找到Canvas
                 canvas = GameObject.Find("Canvas");
                 //找到画布下的Text
                 Text = canvas.transform.Find("Text").gameObject;
                 //获取Text的Text组件
-                Text  text_pause = Text.GetComponent<Text>();
+                TMP_Text tmp_text_puase= Text.GetComponent<TMP_Text>();
                 //修改Text组件的值
-                text_pause.text = "点击了pause";
+                tmp_text_puase.text = "click pause";
                 break;
             default:
                 break;
