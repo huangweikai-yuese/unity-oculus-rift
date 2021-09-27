@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 // grabs any object that has a collider
 // adding a GrabObject script to the object offers more functionality
@@ -54,7 +56,6 @@ public class myObject_controller_right : MonoBehaviour
             passthrough.colorMapEditorBrightness = -1;
             passthrough.colorMapEditorContrast = -1;
         }
-
         //启动协程
         StartCoroutine(StartDemo());
         // 在“打孔”着色器和画笔环之后渲染这些 UI 元素
@@ -79,12 +80,18 @@ public class myObject_controller_right : MonoBehaviour
         //如果有悬停物体
         if (hoverObject)
         {
-            //并按下键
+            //并按下了中指键，则执行抓取函数
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller))
             {
                 //抓取悬停物体
                 grabObject = hoverObject;
                 GrabHoverObject(grabObject, controllerPos, controllerRot);
+            }
+            //如果按下的是食指键，则执行该物体挂载的点击脚本的点击函数
+            else if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller))
+            {
+                //得到这个GameObject的click组件,执行响应函数,需要在被点击的gameObject加入click脚本组件,如果没有click组件则默认不执行
+                hoverObject.GetComponent<click>().clicked(hoverObject.name);
             }
         }
 
@@ -419,5 +426,10 @@ public class myObject_controller_right : MonoBehaviour
                 objectInstructionsLabel.text = "Grip Trigger to grab";
             }
         }
+    }
+
+    public void OnPointerDownDelegate(PointerEventData data)
+    {
+       
     }
 }
