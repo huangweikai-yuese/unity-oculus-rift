@@ -1,16 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 // grabs any object that has a collider
 // adding a GrabObject script to the object offers more functionality
 
 // 抓取任何有碰撞器(collider)的物体
 // 向对象添加 GrabObject 脚本可提供更多功能
-public class myObject_controller_left : MonoBehaviour
+public class Manipulator_controller_right : MonoBehaviour
 {
     //修改这里的Rtouch为Ltouch可以在左右控制器切换
-    OVRInput.Controller controller = OVRInput.Controller.LTouch;
+    OVRInput.Controller controller = OVRInput.Controller.RTouch;
 
     GameObject hoverObject = null;
     GameObject grabObject = null;
@@ -46,6 +48,7 @@ public class myObject_controller_left : MonoBehaviour
     // only used in this script for fading in from black
     public OVRPassthroughLayer passthrough;
 
+
     private void Start()
     {
         if (passthrough)
@@ -53,7 +56,6 @@ public class myObject_controller_left : MonoBehaviour
             passthrough.colorMapEditorBrightness = -1;
             passthrough.colorMapEditorContrast = -1;
         }
-
         //启动协程
         StartCoroutine(StartDemo());
         // 在“打孔”着色器和画笔环之后渲染这些 UI 元素
@@ -78,7 +80,7 @@ public class myObject_controller_left : MonoBehaviour
         //如果有悬停物体
         if (hoverObject)
         {
-            //并按下键
+            //并按下了中指键，则执行抓取函数
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller))
             {
                 //抓取悬停物体
@@ -131,8 +133,6 @@ public class myObject_controller_left : MonoBehaviour
         GUILayout.Label("控制器旋转" + controllerRot.y);
         GUILayout.Label("控制器旋转" + controllerRot.z);
     }
-
-
 
     void GrabHoverObject(GameObject grbObj, Vector3 controllerPos, Quaternion controllerRot)
     {
@@ -426,5 +426,10 @@ public class myObject_controller_left : MonoBehaviour
                 objectInstructionsLabel.text = "Grip Trigger to grab";
             }
         }
+    }
+
+    public void OnPointerDownDelegate(PointerEventData data)
+    {
+       
     }
 }

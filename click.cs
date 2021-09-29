@@ -15,10 +15,13 @@ public class click : MonoBehaviour
         {
             case "Cube":
                 //找到Canvas
-                 canvas = GameObject.Find("Canvas");
-                //找到Canvas下的Button
-                button = canvas.transform.Find("Button").gameObject;
-                Destroy(button);
+                canvas = GameObject.Find("Canvas");
+                //找到画布下的Text
+                Text = canvas.transform.Find("Text").gameObject;
+                //获取Text的TMP_Text组件
+                TMP_Text tmp_text_cube = Text.GetComponent<TMP_Text>();
+                //修改Text组件的值
+                tmp_text_cube.text = "click cube";
                 break;
             case "play":
                 //找到Canvas
