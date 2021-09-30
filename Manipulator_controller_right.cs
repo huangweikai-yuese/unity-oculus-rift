@@ -103,7 +103,7 @@ public class Manipulator_controller_right : MonoBehaviour
             else if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller))
             {
                 //得到这个GameObject的click组件,执行响应函数,需要在被点击的gameObject加入click脚本组件,如果没有click组件则默认不执行
-                hoverObject.GetComponent<click>().clicked(hoverObject.name);
+                hoverObject.GetComponent<click>().GameObject_clicked(hoverObject.name);
             }
         }
 
