@@ -14,9 +14,8 @@ pause.png 暂停图片
 
 play.png 开始图片
 
-1.mp4   视频
+1.mp4   测试视频
 
-test.cs 测试脚本
 
 
 
