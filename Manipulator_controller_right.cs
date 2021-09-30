@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using TMPro;
 
 // grabs any object that has a collider
 // adding a GrabObject script to the object offers more functionality
@@ -80,6 +81,17 @@ public class Manipulator_controller_right : MonoBehaviour
         //如果有悬停物体
         if (hoverObject)
         {
+            /////////////////////test////////////////////////////
+            GameObject  canvas = GameObject.Find("CanvasWorld");
+            //找到画布下的Text
+            GameObject Text = canvas.transform.Find("Text").gameObject;
+            //获取Text的TMP_Text组件
+            TMP_Text tmp_text_cube = Text.GetComponent<TMP_Text>();
+            //修改Text组件的值
+            tmp_text_cube.text = "object:"+hoverObject.name;
+            /////////////////////test////////////////////////////
+
+
             //并按下了中指键，则执行抓取函数
             if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller))
             {
